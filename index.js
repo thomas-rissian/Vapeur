@@ -5,8 +5,8 @@ const bodyParser = require("body-parser");
 
 const app = express();
 const hbs = require("hbs");
-const prisma = new PrismaClient();
 const path = require("path");
+const prisma = new PrismaClient();
 
 const PORT = 3080;
 
@@ -18,9 +18,6 @@ try{
     process.exit(1);
 }
 
-// Router
-const router = require("./router/route");
-
 // Configuration Template
 app.use(express.static("public"));
 app.set("view engine", "hbs"); // On définit le moteur de template que Express va utiliser
@@ -31,6 +28,7 @@ hbs.registerPartials(path.join(__dirname, "views", "partials"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routage
+const router = require("./router/route");
 app.use("/",router.router);
 
 // Ecoute sur le 3080
@@ -57,5 +55,4 @@ async function initDb(){
             })
         }
     }
-    
 }

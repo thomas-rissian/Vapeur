@@ -3,7 +3,7 @@ const router = express.Router();
 
 const kindOfGameController = require("../controllers/kindOfGame");
 
-router.get("/",kindOfGameController.listKind);
+router.get("/",kindOfGameController.list);
 
 module.exports = {
     router,

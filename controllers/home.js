@@ -8,7 +8,7 @@ const homePage = async (req, res)=>{
         res.render("index");
 
     }catch(error){
-        console.error(error);
+        console.error("error homePage",error);
         res.status(500).send("Error Home Page don't work");
     }
 }
