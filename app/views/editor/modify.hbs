@@ -1,0 +1,12 @@
+<h1>Modifier</h1>
+<h2>{{error}}</h2>
+<form method="post" action="/editor/{{game.id}}/modify">
+
+    <label for="name">Nom : </label> 
+    <input type="text" id="name"  name = "name" value="{{game.name}}"/>
+
+    <input type="submit" value="Modifier">
+</form>
+<form method="post" action="/editor/{{game.id}}/delete">
+    <input type="submit" value="Supprimer">
+</form>

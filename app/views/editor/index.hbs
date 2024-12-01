@@ -1,0 +1,8 @@
+<a href="/">Accueil</a>
+<a href="/editor/create">Ajouter Editeur</a>
+<h1>Editeurs :</h1>
+<ul>
+{{#each editors}}
+    <li><a href="/editor/{{id}}/modify">{{name}}</a></li>
+{{/each}}
+</ul>

@@ -1,0 +1,15 @@
+<a href="/">Accueil</a>
+<a href="/game">Jeux</a>
+<a href="/game/{{game.id}}/modify">Modifier</a>
+
+<h1>Détail</h1>
+
+<h2>nom : {{game.name}}</h2>
+<h2>desc : {{game.desc}}</h2>
+<h2>date : {{formatDate game.releaseDate}}</h2>
+<h2>editeur :{{editor.name}}</h2>
+<h2>genre : {{kind.name}}</h2>
+
+<form method="post" action="/game/{{game.id}}/delete">
+    <input type="submit" value="delete" name="delete"/>
+</form>

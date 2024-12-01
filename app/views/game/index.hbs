@@ -1,0 +1,8 @@
+<a href="/">Accueil</a>
+<a href="/game/create">Ajouter Jeux</a>
+<h1>Jeux :</h1>
+<ul>
+{{#each games}}
+    <li><a href="/game/{{id}}">{{name}}</a></li>
+{{/each}}
+</ul>

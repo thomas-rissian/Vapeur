@@ -1,8 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-
-const homePage = async (req, res)=>{
+const HOME = async (req, res)=>{
     try{
 
         res.render("index");
@@ -15,5 +14,5 @@ const homePage = async (req, res)=>{
 
 module.exports =
 {
-    homePage,
+    HOME,
 };

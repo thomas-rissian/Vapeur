@@ -3,3 +3,10 @@ html{
     padding: 0;
     background-color: brown;
 }
+a{
+    text-decoration: none;
+    color: white;
+}
+a:hover{
+    text-decoration: underline;
+}

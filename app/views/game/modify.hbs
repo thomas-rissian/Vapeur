@@ -1,0 +1,30 @@
+<a href="/">Accueil</a>
+<a href="/game">Jeux</a>
+<h1>Création</h1>
+<form method="post" action="/game/{{game.id}}/modify">
+
+    <label for="name">Nom : </label> 
+    <input type="text" id="name"  name = "name" value = "{{game.name}}"/>
+
+    <label for="desc">Description : </label> 
+    <input type="text" id="desc"  name = "desc"value = "{{game.desc}}"/>
+
+    <label for="releaseDate">Date : </label> 
+    <input type="date" id="releaseDate"  name = "releaseDate" value = "{{formatDateCalendar game.releaseDate}}"/>
+
+    <label for="kindId">Genre : </label>
+    <select id="kindId" name="kindId" >
+        {{#each kinds}}
+             <option value="{{id}}" {{#ifEqual id ../game.kindId}}selected{{/ifEqual}}>{{this.name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="editorId">Editeur : </label>
+    <select id="editorId" name="editorId">
+        {{#each editors}}
+             <option value="{{id}}" {{#ifEqual id ../game.editorId}}selected{{/ifEqual}}>{{name}}</option>
+        {{/each}}
+    </select>
+
+    <input type="submit" value="Modifier">
+</form>
