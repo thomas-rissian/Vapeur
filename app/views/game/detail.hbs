@@ -9,6 +9,6 @@
 <h2>nom : {{game.name}}</h2>
 <h2>desc : {{game.desc}}</h2>
 <h2>date : {{formatDate game.releaseDate}}</h2>
-<h2>editeur :{{editor.name}}</h2>
-<h2>genre : {{kind.name}}</h2>
+<h2>editeur : <a href="/game/editor/{{game.editorId}}">{{editor.name}}</a></h2>
+<h2>genre :<a href="/game/kind/{{game.kindId}}"> {{kind.name}}</a></h2>
 

@@ -16,7 +16,6 @@ const defaultKind = [
 async function initDb(){
     try {
         const nbKind = await kindDao.count();
-        console.log(nbKind);
         if(nbKind !== 6){
             for(const kind of defaultKind){
                 const kindNew = await kindDao.findById(kind.id);

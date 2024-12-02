@@ -116,6 +116,21 @@ class GameDAO
             console.error("Game BDD: deleteGame", error);
         }
     }
+
+    /**
+     * Retourne 10 premier élément
+     * @returns {Promise<Game[]>}
+     */
+    async highlighting(){
+        try {
+            const games = await prisma.game.findMany({
+                take: 10,
+            });
+            return games.map(game => new Game(game));
+        }catch (error) {
+            console.error("Game BDD: highlighting", error);
+        }
+    }
 }
 
 module.exports = new GameDAO();
