@@ -14,37 +14,35 @@ datasource db {
 }
 
 model KindOfGame {
-  id    Int    @id @default(autoincrement()) 
+  id    Int    @id @default(autoincrement())
   name  String
-  games Game[] 
+  games Game[]
 }
 
 model Editor {
   id    Int    @id @default(autoincrement())
   name  String
-  games Game[] 
+  games Game[]
 }
 
-
 model Game {
-  id          Int         @id @default(autoincrement())
-  name       String
+  id          Int      @id @default(autoincrement())
+  name        String
   desc        String
   releaseDate DateTime
-  kindId      Int         
-  editorId    Int         
+  kindId      Int
+  editorId    Int
+  image       String   @default("")
 
-  kind        KindOfGame  @relation(fields: [kindId], references: [id])
-  editor      Editor      @relation(fields: [editorId], references: [id])
-
+  kind   KindOfGame @relation(fields: [kindId], references: [id])
+  editor Editor     @relation(fields: [editorId], references: [id])
 
   highlighting highlighting[]
 }
 
-model highlighting{
-  id          Int         @id @default(autoincrement())
-  gameId      Int
+model highlighting {
+  id     Int @id @default(autoincrement())
+  gameId Int
 
-  game        Game @relation(fields: [gameId], references: [id],onDelete: Cascade)  
-
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
 }

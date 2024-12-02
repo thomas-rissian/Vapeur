@@ -4,6 +4,7 @@
   "description": "Projet Web Javascript, CRUD sur un site de listening de jeux vidéo",
   "main": "index.js",
   "scripts": {
+    "bddTest": "node app/config/testBdd.js",
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
