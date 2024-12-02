@@ -12,6 +12,8 @@ router.get("/:id/modify",editorController.MODIFY_FORM);
 router.post("/:id/modify",editorController.MODIFY);
 
 router.post("/:id/delete",editorController.DELETE);
+router.get("/:id/deleteCascade",editorController.DELETE_CASCADE_FORM);
+router.post("/:id/deleteCascade",editorController.DELETE_CASCADE);
 
 module.exports = {
     router,

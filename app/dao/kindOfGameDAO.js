@@ -1,84 +1,74 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const kindOfGame = require("../model/KindOfGame");
+const KindOfGame = require("../model/KindOfGame");
 
 class kindOfGameDAO{
     /**
      * Obtenir tous les genres de jeu
-     * @return list d'objet kindOfGame
+     * @return {KindOfGame}
      */
     async findAll(){
         try{
             const kinds = await prisma.kindOfGame.findMany()
-            return kinds.map(kind => new kindOfGame(kind));
+            return kinds.map(kind => new KindOfGame(kind));
         }catch(error){
-            console.error("Editor BDD: findAll", error);
+            console.error("kindOfGame BDD: findAll", error);
         }
     }
     /**
      * Obtenir un genre de jeu
-     * @param int id
-     * @return kindOfGame
+     * @param id
+     * @return KindOfGame
      */
     async findById(id){
         try{
             id = parseInt(id);
-            const editor = await prisma.kindOfGame.findUnique({
+            const kind = await prisma.kindOfGame.findUnique({
                 where:{
                     id: id,
                 }
             });
-            if(!editor){
-                return new kindOfGame();
+            if(!kind){
+                return new KindOfGame();
             }
-            return new kindOfGame(editor);
+            return new KindOfGame(kind);
         }catch(error){
-            console.error("Editor BDD: findById", error);
+            console.error("kindOfGame BDD: findById", error);
         }
     }
     /**
      * Insert kindOfGame
-     * @param KindOfGame kindOfGame
+     * @param kindOfGame
      */
-    async createEditor(kindOfGame){
+    async createKindOfGame(kindOfGame){
         try{
             await prisma.kindOfGame.create({
-                data : kindOfGame.toJson(),
-             });
-        }catch(error){
-            console.error("Editor BDD: createEditor", error);
-        }
-    }
-    /**
-     * Update kindOfGame
-     * @param KindOfGame kindOfGame 
-     */
-    async modifyEditor(kindOfGame){
-        try{
-            await prisma.kindOfGame.update({
-                data : kindOfGame.toJson(),
-                where:{
+                data : {
                     id: kindOfGame.id,
-                }
+                    name: kindOfGame.name,
+                },
              });
         }catch(error){
-            console.error("Editor BDD: modifyEditor", error);
+            console.error("kindOfGame BDD: createKindOfGame", error);
         }
     }
+
     /**
-     * Delete
-     * @param Int id 
+     *
+     * @returns {Promise<number>}
      */
-    async deleteEditor(id){
-        try{
-            id = parseInt(id);
-            await prisma.kindOfGame.delete({
-                where:{
-                    id: id,
-                }
-             });
-        }catch(error){
-            console.error("editor BDD: deleteEditor", error);
+    async count(){
+        try {
+            return await prisma.kindOfGame.count();
+        }catch (error){
+            console.error("kindOfGame BDD: count ", error);
+        }
+    }
+    async reset(){
+        try {
+            await prisma.kindOfGame.deleteMany();
+        }catch (error){
+            console.error("kindOfGame BDD: reset ", error);
         }
     }
 }

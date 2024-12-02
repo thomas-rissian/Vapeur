@@ -20,14 +20,13 @@ class Game{
     }
 
     toJson() {
-        const json = {
+        return {
             name: this.#name,
             desc: this.#desc,
             releaseDate: this.#releaseDate,
             kindId: this.#kindId,
             editorId: this.#editorId
         };
-        return json;
     }
 
     setId(id){
@@ -105,6 +104,5 @@ class Game{
     get error(){
         return this.#error;
     }
-    
 }
 module.exports = Game;

@@ -10,10 +10,9 @@ class KindOfGame{
     }
 
     toJson() {
-        const json = {
+        return {
             name: this.#name,
         };
-        return json;
     }
 
     setId(id){
@@ -37,6 +36,11 @@ class KindOfGame{
     get name(){
         return this.#name;
     }
+
+    /**
+     *
+     * @returns CustomError
+     */
     get error(){
         return this.#error;
     }

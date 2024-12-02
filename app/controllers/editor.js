@@ -3,7 +3,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const editorDao = require('../dao/editorDAO');
 const Editor = require("../model/Editor");
-
+const gameDao = require('../dao/gameDao');
 const LIST = async (req, res) =>{
     try{
         const editors = await editorDao.findAll();
@@ -57,18 +57,26 @@ const MODIFY_FORM = async (req, res) =>{
 const DELETE = async (req, res)=>{
     try{
         const editor = await editorDao.findById(req.params.id);
+        if(await gameDao.findByEditor(editor.id)){
+            res.status(200).redirect(`/editor/${editor.id}/deleteCascade`);
+        }
         if(!editor.error.hasError()){
             await editorDao.deleteEditor(editor.id);
         }else{
             const error = "Impossible de supprimer Car des jeux sont encore lié à cet éditeur";
             res.status(400).render("/editor/modify",{editor,error});
         }
-            
         res.status(200).redirect("/editor");
     }catch(error){
         console.error("error delete editor", error);
         res.status(500).send("Error delete editor don't work");
     }
+}
+const DELETE_CASCADE_FORM = async (req, res) =>{
+    res.send("Impossible de supprimer Car des cascade");
+}
+const DELETE_CASCADE = async (req, res) =>{
+
 }
 module.exports = {
     LIST,
@@ -77,4 +85,6 @@ module.exports = {
     DELETE,
     MODIFY,
     MODIFY_FORM,
+    DELETE_CASCADE_FORM,
+    DELETE_CASCADE
 }

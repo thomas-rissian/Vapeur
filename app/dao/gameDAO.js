@@ -40,8 +40,8 @@ class GameDAO
     }
     /**
      * Obtenir tous les jeux d'un éditeur
-     * @param int
      * @returns list Game
+     * @param id
      */
     async findByEditor(id){
         try{
@@ -86,7 +86,7 @@ class GameDAO
     }
     /**
      * Update game
-     * @param Game game 
+     * @param game
      */
     async modifyGame(game){
         try{
