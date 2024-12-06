@@ -1,7 +1,21 @@
-<a href="/">Accueil</a>
-<h1>Genre :</h1>
-<ul>
-    {{#each kinds}}
-        <li><a href="/game/kind/{{id}}">{{name}}</a></li>
-    {{/each}}
-</ul>
+<div class="bar-retour editor-bar">
+    <div class="historique editor-historique">
+        {{>arrow route="/" title="Accueil >"}}
+        {{>arrow title="Genre"}}
+    </div>
+</div>
+
+<section class="center editor-center">
+    {{>gameList games=highlighting title="Jeux mis en avant" class="editor-games"}}
+    {{>gameList games=gameTop title="Jeux de la semaine" class="editor-games"}}
+</section>
+<section class="center">
+    <h1>Genres</h1>
+    <ul class="editor-list">
+        {{#each kinds}}
+            <li class="editor-item">
+                <a href="/game/kind/{{id}}" class="editor-name-link">{{name}}</a>
+            </li>
+        {{/each}}
+    </ul>
+</section>

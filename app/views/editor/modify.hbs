@@ -1,12 +1,42 @@
-<h1>Modifier</h1>
-<h2>{{error}}</h2>
-<form method="post" action="/editor/{{game.id}}/modify">
+<div class="bar-retour">
+    <!-- Historique -->
+    <div class="historique">
+        {{>arrow route="/" title="Accueil > "}}
+        {{>arrow route="/editor" title="Editeurs > "}}
+        {{>arrow title=(concat "Modification > " editor.name)}}
+    </div>
 
-    <label for="name">Nom : </label> 
-    <input type="text" id="name"  name = "name" value="{{game.name}}"/>
+</div>
+<section class="center">
+    <h1 >Modifier</h1>
+    <div class="editor-modify-container">
 
-    <input type="submit" value="Modifier">
-</form>
-<form method="post" action="/editor/{{game.id}}/delete">
-    <input type="submit" value="Supprimer">
-</form>
+
+        {{#if error}}
+            <h2 class="editor-error">{{error}}</h2>
+        {{/if}}
+
+        <form method="post" action="/editor/{{editor.id}}/modify" class="editor-modify-form">
+            <div class="form-group">
+                <label for="name" class="form-label">Nom :</label>
+                <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        class="form-input"
+                        value="{{editor.name}}"
+                        required
+                />
+            </div>
+
+            <div class="form-actions">
+                <input type="submit" value="Modifier" class="form-submit-btn">
+
+        </form>
+
+        <form method="post" action="/editor/{{editor.id}}/delete">
+                <input type="submit" value="Supprimer" class="form-delete-btn">
+            </div>
+        </form>
+    </div>
+</section

@@ -38,6 +38,11 @@ class Editor{
     get name(){
         return this.#name;
     }
+
+    /**
+     *
+     * @returns CustomError
+     */
     get error(){
         return this.#error;
     }

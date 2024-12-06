@@ -11,6 +11,8 @@ router.use("/editor",editor.router);
 router.use("/kind",kindOfGame.router);
 router.use("/",home.router);
 
+
+
 module.exports = {
     router,
 }

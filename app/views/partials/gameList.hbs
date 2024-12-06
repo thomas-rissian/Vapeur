@@ -1,4 +1,3 @@
-<section class="center">
 {{#ifContain games }}
         <h1>{{title}}</h1>
         <div class="game-list">
@@ -8,10 +7,22 @@
                         <div class="img-container">
                             <img src="/images/test.jpg" alt="{{name}}"
                                  onerror="this.onerror=null; this.src='/images/not_found.jpg';"/>
+                            <form action="/game/{{id}}/highlighting" method="post" class="svg-form">
+                                {{#if favorite}}
+                                    <button type="submit" class="svg-button">
+                                        <img src="/svg/favorite_complete.svg" alt="Submit Icon">
+                                    </button>
+                                {{else}}
+                                    <button type="submit" class="svg-button">
+                                        <img src="/svg/favorite_uncomplete.svg" alt="Submit Icon">
+                                    </button>
+                                {{/if}}
+                            </form>
                         </div>
                         {{name}}
                     </a>
                 </div>
+
             {{/each}}
         </div>
 {{/ifContain}}

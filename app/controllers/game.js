@@ -103,7 +103,8 @@ const LIST_BY_KIND = async (req,res)=>{
 const LIST_BY_EDITOR = async (req,res)=>{
     try{
         const games = await gameDao.findByEditor(req.params.id);
-        res.render("./game/index",{games});
+        const editor = await editorDao.findById(req.params.id);
+        res.render("./game/listByeditor",{games, editor});
     }catch(error){
         console.error("error listByEditor game", error);
         res.status(500).send("Error Game Liste By Editor don't work");
@@ -124,16 +125,18 @@ const HIGHLIGHTING = async (req,res)=>{
         const highlighted = await highlightingDAO.findById(req.params.id);
         if(highlighted){
             await highlightingDAO.deleteHighlighting(req.params.id);
-            res.status(200).redirectEnd();
+            //page précédente
+            res.status(200).redirect(req.get('Referer'));
         }else{
             await highlightingDAO.addHighlighting(req.params.id);
-            res.status(200).redirectEnd();
+            res.status(200).redirect(req.get('Referer'));
         }
     }catch(error){
         console.error("error highlighting game", error);
         res.status(500).send("Error highlighting don't work");
     }
 }
+
 module.exports = {
     LIST,
     LIST_BY_KIND,

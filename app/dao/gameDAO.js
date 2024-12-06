@@ -11,6 +11,13 @@ class GameDAO
     async findAll(){
         try{
             const games = await prisma.game.findMany({
+                include: {
+                    highlighting: {
+                        select: {
+                            idHighlighting: true,
+                        },
+                    },
+                },
                 orderBy: {
                         name: 'asc',
                 },
@@ -29,6 +36,13 @@ class GameDAO
         try{
             id = parseInt(id);
             const game = await prisma.game.findUnique({
+                include: {
+                    highlighting: {
+                        select: {
+                            idHighlighting: true,
+                        },
+                    },
+                },
                 where:{
                     id: id,
                 }
@@ -51,6 +65,13 @@ class GameDAO
         try{
             id = parseInt(id);
             const games = await prisma.game.findMany({
+                include: {
+                    highlighting: {
+                        select: {
+                            idHighlighting: true,
+                        },
+                    },
+                },
                 orderBy: {
                     name: 'asc',
                 },
@@ -72,6 +93,13 @@ class GameDAO
         try{
             id = parseInt(id);
             const games = await prisma.game.findMany({
+                include: {
+                    highlighting: {
+                        select: {
+                            idHighlighting: true,
+                        },
+                    },
+                },
                 orderBy: {
                     name: 'asc',
                 },
@@ -132,12 +160,35 @@ class GameDAO
     }
 
     /**
+     * Supprime plusieurs jeux
+     * @param id
+     */
+    async deleteEditorGame(id){
+        try{
+            id = parseInt(id);
+            await prisma.game.deleteMany({
+                where:{
+                    editorId: id,
+                }
+            });
+        }catch(error){
+            console.error("Game BDD: deleteEditorGame", error);
+        }
+    }
+    /**
      * Retourne 10 premiers éléments
      * @returns {Promise<Game[]>}
      */
     async firstGame(){
         try {
             const games = await prisma.game.findMany({
+                include: {
+                    highlighting: {
+                        select: {
+                            idHighlighting: true,
+                        },
+                    },
+                },
                 orderBy: {
                     name: 'asc',
                 },
@@ -150,17 +201,25 @@ class GameDAO
     }
     async highlighting(){
         try {
-            const games = await prisma.highlighting.findMany({
-                include: {
-                    game: true, // Inclure les informations du jeu associé
-                },
-                orderBy: {
-                    game: {
-                        name: 'asc', // Tri des jeux par nom en ordre alphabétique croissant
+            const games = await prisma.game.findMany({
+                where: {
+                    highlighting: {
+                        some: {}, // Vérifie si une relation existe dans `highlighting`
                     },
                 },
+                include: {
+                    highlighting: {
+                        select: {
+                            idHighlighting: true, // On inclut uniquement l'ID du highlighting
+                        },
+                    },
+                },
+                orderBy: {
+                    name: 'asc', // Tri des jeux par nom en ordre alphabétique croissant
+                },
             });
-            return games.map(game => new Game(game.game));
+
+            return games.map(game => new Game(game));
         }catch (error) {
             console.error("Game BDD: highlighting", error);
         }

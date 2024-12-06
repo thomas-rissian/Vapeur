@@ -1,0 +1,29 @@
+<div class="bar-retour">
+    <!-- Historique -->
+    <div class="historique">
+        {{>arrow route="/" title="Accueil > "}}
+        {{>arrow route="/editor" title="Editeurs > "}}
+        {{>arrow route=(concat "/editor/" editor.id "/modify") title="Modification > "}}
+        {{>arrow title=(concat editor.name " > deleteCascade")}}
+    </div>
+
+</div>
+<section class="center">
+    <h1 >Suppression Editeur</h1>
+
+    <div class="editor-modify-container">
+
+        <form method="post" action="/editor/{{editor.id}}/deleteCascade" class="editor-modify-form">
+            <div class="form-group">
+                <h2>En supprimant cet éditeur, vous allez supprimer {{gameCount}} de jeux</h2>
+                <h2>Êtes vous sur de vouloirs tous supprimer ?</h2>
+                <div class="form-actions">
+                    <a href="/editor/" class="btn-primary">Annuler</a>
+                    <input type="submit" value="Supprimer" class="form-delete-btn">
+                </div>
+
+        </form>
+
+
+    </div>
+</section>

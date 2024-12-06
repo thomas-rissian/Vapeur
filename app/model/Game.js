@@ -1,4 +1,5 @@
 const CustomError = require("./Error");
+const req = require("express/lib/request");
 class Game{
 
     #id = 0;
@@ -7,10 +8,10 @@ class Game{
     #releaseDate = new Date();
     #kindId = 0;
     #editorId = 0;
+    #favorite;
     #error;
 
     constructor(reqBody ={}) {
-        console.log(reqBody);
         this.#error = new CustomError();
         if (reqBody.id) this.setId(reqBody.id);
         this.setName(reqBody.name || "");
@@ -18,6 +19,16 @@ class Game{
         this.setReleaseDate(reqBody.releaseDate || "");
         this.setKindId(reqBody.kindId || 0);
         this.setEditorId(reqBody.editorId || 0);
+        if(Object.keys(reqBody).length === 0) {
+            this.#favorite = false;
+        }else{
+            if(reqBody.highlighting !== undefined){
+                this.#favorite = false;
+            }else{
+                this.#favorite = true;
+            }
+        }
+
     }
 
     toJson() {
@@ -100,6 +111,9 @@ class Game{
 
     get editorId() {
         return this.#editorId;
+    }
+    get favorite(){
+        return this.#favorite;
     }
 
     /**

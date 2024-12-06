@@ -3,7 +3,9 @@ body{
 }
 a{
     color: var(--main-text);
+    user-select: none;
 }
+
 .center{
     width: 90%;
     margin: auto;
@@ -142,8 +144,7 @@ form.form select:focus {
 
 /* Bouton */
 form.form input[type="submit"],
-.delete-form input[type="submit"],
-.modify-form input[type="submit"]{
+.delete-form input[type="submit"]{
     color: var(--text-nav);
     border: none;
     padding: 10px;
@@ -184,8 +185,7 @@ form.form input[type="submit"],
     margin-top: 20px;
 }
 
-.delete-form,
-.modify-form{
+.delete-form{
     margin: 0; /* Supprime les marges par défaut pour s'aligner */
     padding: 0;
 }
@@ -221,18 +221,6 @@ form.form input[type="submit"],
     width: 100%;
     height: 100%;
     margin-left: 5%;
-
-}
-.modify-form input[type="submit"] {
-    background: var(--button-bg);
-    color: #fff;
-    border: none;
-    width: 100%;
-    height: 100%;
-    margin-left: 5%;
-}
-.modify-form input[type="submit"]:hover {
-    background: var(--button-bg-hover);
 
 }
 .delete-form input[type="submit"]:hover {
@@ -370,4 +358,223 @@ form.form input[type="submit"],
 
 .detail-information {
     margin-bottom: 4%;
+}
+/* Conteneur du formulaire */
+.svg-form {
+    position: absolute; /* Permet de positionner le bouton */
+    top: 10px; /* Ajustez la position verticale */
+    right: 10px; /* Ajustez la position horizontale */
+}
+
+/* Bouton stylisé avec le SVG */
+.svg-button {
+    background: none; /* Supprime le fond par défaut */
+    border: none; /* Supprime les bordures par défaut */
+    padding: 0; /* Supprime les marges internes */
+    cursor: pointer; /* Curseur interactif */
+    width: 24px; /* Ajustez la taille */
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.svg-button img {
+    width: 100%; /* L'image remplit le bouton */
+    height: 100%; /* L'image remplit le bouton */
+    object-fit: contain; /* Garde le ratio du SVG */
+    transition: transform 0.2s ease, opacity 0.2s ease; /* Animation au survol */
+}
+
+.svg-button:hover img {
+    transform: scale(1.2); /* Agrandissement au survol */
+    opacity: 0.8; /* Transparence légère au survol */
+}
+
+/* Conteneur de l'image */
+.img-container {
+    position: relative; /* Nécessaire pour positionner le bouton à l'intérieur */
+}
+
+/* Liste des éditeurs */
+.editor-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.editor-item {
+    margin: 10px 0;
+    display: flex; /* Aligne horizontalement */
+    justify-content: space-between; /* Espacement entre le nom et les boutons */
+    align-items: center; /* Aligne verticalement le texte et les boutons */
+    background-color: #1b2338;
+    border-radius: 8px;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.editor-item:hover {
+    background-color: #2e3a5b;
+    transform: translateY(-2px);
+}
+
+.editor-name {
+    font-size: 1.2rem;
+    color: #ffffff;
+    flex: 1; /* Prend tout l'espace sauf celui des boutons */
+}
+
+/* Conteneur des boutons */
+.editor-buttons {
+    display: flex;
+    gap: 10px; /* Espacement entre les boutons */
+}
+
+/* Boutons */
+.editor-modify-btn,
+.editor-games-btn {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Bouton Modifier */
+.editor-modify-btn {
+    background-color: #4db8ff;
+}
+
+.editor-modify-btn:hover {
+    background-color: #82cfff;
+    color: #0f152f;
+}
+
+/* Bouton Jeux Associés */
+.editor-games-btn {
+    background-color: #ff944d;
+}
+
+.editor-games-btn:hover {
+    background-color: #ffc299;
+    color: #0f152f;
+}
+/* Conteneur principal */
+.editor-modify-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #0f152f;
+    color: #ffffff;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* Titre principal */
+.editor-modify-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ffffff;
+}
+
+/* Message d'erreur */
+.editor-error {
+    color: #ff4d4d;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Formulaire */
+.editor-modify-form,
+.editor-delete-form {
+    background-color: #1b2338;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Groupes de champs */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #2e3a5b;
+    color: #ffffff;
+    outline: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-input:focus {
+    background-color: #3d4e73;
+    box-shadow: 0 0 5px #4db8ff;
+}
+
+/* Boutons d'action */
+.form-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* Boutons d'action (communs) */
+.form-submit-btn,
+.form-delete-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-family: inherit; /* Assure la cohérence de la police */
+    background-color: transparent;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block; /* Pour garantir la même taille même si les textes diffèrent */
+    text-align: center;
+    min-width: 120px; /* Uniformise les largeurs */
+    height: 45px; /* Fixe la hauteur */
+    line-height: 1.5; /* Ajuste la hauteur de ligne */
+    transition: all 0.3s ease;
+}
+
+/* Style spécifique pour le bouton Modifier */
+.form-submit-btn {
+    background-color: #4db8ff;
+}
+
+.form-submit-btn:hover {
+    background-color: #82cfff;
+}
+
+/* Style spécifique pour le bouton Supprimer */
+.form-delete-btn {
+    background-color: #ff4d4d;
+}
+
+.form-delete-btn:hover {
+    background-color: #ff7f7f;
 }

@@ -1,8 +1,26 @@
-<a href="/">Accueil</a>
-<a href="/editor/create">Ajouter Editeur</a>
-<h1>Editeurs :</h1>
-<ul>
-{{#each editors}}
-    <li><a href="/editor/{{id}}/modify">{{name}}</a></li>
-{{/each}}
-</ul>
+<div class="bar-retour editor-bar">
+    <div class="historique editor-historique">
+        {{>arrow route="/" title="Accueil >"}}
+        {{>arrow title="Editeur"}}
+    </div>
+</div>
+
+<section class="center editor-center">
+    {{>gameList games=highlighting title="Jeux mis en avant" class="editor-games"}}
+    {{>gameList games=gameTop title="Jeux de la semaine" class="editor-games"}}
+</section>
+<section class="center">
+    <h1>Editeurs</h1>
+    <ul class="editor-list">
+        {{#each editors}}
+            <li class="editor-item">
+                <a href="/game/editor/{{id}}" class="editor-name-link">{{name}}</a>
+                <div class="editor-buttons">
+                    <a href="/editor/{{id}}/modify" class="editor-modify-btn" aria-label="Modifier {{name}}">
+                        Modifier
+                    </a>
+                </div>
+            </li>
+        {{/each}}
+    </ul>
+</section>

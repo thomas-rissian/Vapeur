@@ -41,8 +41,8 @@ model Game {
 }
 
 model highlighting {
-  id     Int @id @default(autoincrement())
-  gameId Int @unique
+  idHighlighting Int @id @default(autoincrement())
+  gameId         Int @unique
 
   game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
 }

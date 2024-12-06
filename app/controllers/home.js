@@ -4,7 +4,6 @@ const HOME = async (req, res)=>{
     try{
         const gameTop = await gameDao.firstGame()
         const highlighting = await gameDao.highlighting() ;
-        console.log(highlighting[1].toJson());
         res.render("home/index",{gameTop, highlighting});
 
     }catch(error){

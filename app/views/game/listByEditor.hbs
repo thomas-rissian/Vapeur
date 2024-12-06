@@ -2,8 +2,8 @@
     <div class="historique">
         {{>arrow route = "/" title="Accueil >"}}
         {{>arrow route = "/game" title="Jeux >"}}
-        {{>arrow route = "/kind" title="Genre >"}}
-        {{>arrow title=(concat kind.name)}}
+        {{>arrow route = "/editor" title="Editeur >"}}
+        {{>arrow title=(concat editor.name)}}
     </div>
     <div class="bar-modif">
         <a href="/game/create">Ajouter Jeux</a>
@@ -11,5 +11,5 @@
 
 </div>
 <section class="center">
-    {{>gameList games = games title = (concat "Tous les jeux du genre : " kind.name)}}
+    {{>gameList games = games title = (concat "Tous les jeux de l'éditeur : " editor.name)}}
 </section>

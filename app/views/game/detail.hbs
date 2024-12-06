@@ -8,9 +8,6 @@
     <!-- Actions -->
     <div class="bar-modif">
         <a href="/game/{{game.id}}/modify">Modifier</a>
-        <form method="post" action="/game/{{game.id}}/highlighting" class="modify-form" >
-            <input type="submit" value="Mise en avant" name="highlighting" class="btn-primary"/>
-        </form>
         <form method="post" action="/game/{{game.id}}/delete" class="delete-form        ">
             <input type="submit" value="Supprimer" name="delete" class="btn-delete"/>
         </form>
@@ -29,6 +26,20 @@
     <div class="detail-information">
         <a href="/game/kind/{{game.kindId}}" class="genre">{{kind.name}}</a>
         <a href="/game/editor/{{game.editorId}}" class="genre">{{editor.name}}</a>
+        <a class="genre">
+        <form action="/game/{{game.id}}/highlighting" method="post" style="margin: 0">
+            {{#if game.favorite}}
+                <button type="submit" class="svg-button" >
+                    <img src="/svg/favorite_complete.svg" alt="Submit Icon">
+                </button>
+            {{else}}
+                <button type="submit" class="svg-button">
+                    <img src="/svg/favorite_uncomplete.svg" alt="Submit Icon">
+                </button>
+            {{/if}}
+
+        </form>
+        </a>
     </div>
 
     <!-- Image et Description -->

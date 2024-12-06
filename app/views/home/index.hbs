@@ -1,2 +1,10 @@
-{{>gameList games = highlighting title = "Jeux mis en avant"}}
-{{>gameList games = gameTop title = "Jeux de la semaine"}}
+<div class = "bar-retour">
+    <div class="historique">
+        {{>arrow title="Accueil"}}
+    </div>
+
+</div>
+<section class="center">
+    {{>gameList games = highlighting title = "Jeux mis en avant"}}
+    {{>gameList games = gameTop title = "Jeux de la semaine"}}
+</section>
