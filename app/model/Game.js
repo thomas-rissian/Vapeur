@@ -10,6 +10,7 @@ class Game{
     #error;
 
     constructor(reqBody ={}) {
+        console.log(reqBody);
         this.#error = new CustomError();
         if (reqBody.id) this.setId(reqBody.id);
         this.setName(reqBody.name || "");
@@ -101,6 +102,10 @@ class Game{
         return this.#editorId;
     }
 
+    /**
+     *
+     * @returns CustomError
+     */
     get error(){
         return this.#error;
     }

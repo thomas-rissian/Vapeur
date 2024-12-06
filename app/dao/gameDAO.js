@@ -10,7 +10,11 @@ class GameDAO
      */
     async findAll(){
         try{
-            const games = await prisma.game.findMany();
+            const games = await prisma.game.findMany({
+                orderBy: {
+                        name: 'asc',
+                },
+            });
             return games.map(game => new Game(game));
         }catch(error){
             console.error("Game BDD: findAll", error);
@@ -47,6 +51,9 @@ class GameDAO
         try{
             id = parseInt(id);
             const games = await prisma.game.findMany({
+                orderBy: {
+                    name: 'asc',
+                },
                 where:{
                     editorId: id,
                 }
@@ -58,13 +65,20 @@ class GameDAO
     }
     /**
      * Obtenir tous les jeux d'un genre
-     * @param int
+     * @param id
      * @returns list Game
      */
     async findByKind(id){
         try{
             id = parseInt(id);
-            const games = await prisma.game.findMany()
+            const games = await prisma.game.findMany({
+                orderBy: {
+                    name: 'asc',
+                },
+                where:{
+                    kindId: id,
+                }
+            })
             return games.map(game => new Game(game));
         }catch(error){
             console.error("Game BDD: findByKind", error);
@@ -102,7 +116,7 @@ class GameDAO
     }
     /**
      * Delete
-     * @param Int id 
+     * @param id
      */
     async deleteGame(id){
         try{
@@ -118,15 +132,35 @@ class GameDAO
     }
 
     /**
-     * Retourne 10 premier élément
+     * Retourne 10 premiers éléments
      * @returns {Promise<Game[]>}
      */
-    async highlighting(){
+    async firstGame(){
         try {
             const games = await prisma.game.findMany({
-                take: 10,
+                orderBy: {
+                    name: 'asc',
+                },
+                take: 11
             });
             return games.map(game => new Game(game));
+        }catch (error) {
+            console.error("Game BDD: highlighting", error);
+        }
+    }
+    async highlighting(){
+        try {
+            const games = await prisma.highlighting.findMany({
+                include: {
+                    game: true, // Inclure les informations du jeu associé
+                },
+                orderBy: {
+                    game: {
+                        name: 'asc', // Tri des jeux par nom en ordre alphabétique croissant
+                    },
+                },
+            });
+            return games.map(game => new Game(game.game));
         }catch (error) {
             console.error("Game BDD: highlighting", error);
         }

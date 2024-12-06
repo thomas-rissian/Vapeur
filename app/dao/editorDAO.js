@@ -9,7 +9,11 @@ class EditorDAO{
      */
     async findAll(){
         try{
-            const editors = await prisma.editor.findMany()
+            const editors = await prisma.editor.findMany({
+                orderBy: {
+                    name: 'asc',
+                },
+            })
             return editors.map(editor => new Editor(editor));
         }catch(error){
             console.error("Editor BDD: findAll", error);

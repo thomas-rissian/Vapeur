@@ -1,14 +1,45 @@
-<a href="/">Accueil</a>
-<a href="/game">Jeux</a>
-<a href="/game/{{game.id}}/modify">Modifier</a>
-<form method="post" action="/game/{{game.id}}/delete">
-    <input type="submit" value="delete" name="delete"/>
-</form>
-<h1>Détail</h1>
+<div class="bar-retour">
+    <!-- Historique -->
+    <div class="historique">
+        {{>arrow route="/" title="Accueil > "}}
+        {{>arrow route="/game" title="Jeux > "}}
+        {{>arrow title=(concat game.name)}}
+    </div>
+    <!-- Actions -->
+    <div class="bar-modif">
+        <a href="/game/{{game.id}}/modify">Modifier</a>
+        <form method="post" action="/game/{{game.id}}/highlighting" class="modify-form" >
+            <input type="submit" value="Mise en avant" name="highlighting" class="btn-primary"/>
+        </form>
+        <form method="post" action="/game/{{game.id}}/delete" class="delete-form        ">
+            <input type="submit" value="Supprimer" name="delete" class="btn-delete"/>
+        </form>
 
-<h2>nom : {{game.name}}</h2>
-<h2>desc : {{game.desc}}</h2>
-<h2>date : {{formatDate game.releaseDate}}</h2>
-<h2>editeur : <a href="/game/editor/{{game.editorId}}">{{editor.name}}</a></h2>
-<h2>genre :<a href="/game/kind/{{game.kindId}}"> {{kind.name}}</a></h2>
+    </div>
+</div>
 
+<div class="detail">
+    <!-- Titre et Date -->
+    <div>
+        <h1>{{game.name}}</h1>
+        <h2>{{formatDate game.releaseDate}}</h2>
+    </div>
+
+    <!-- Genre et Éditeur -->
+    <div class="detail-information">
+        <a href="/game/kind/{{game.kindId}}" class="genre">{{kind.name}}</a>
+        <a href="/game/editor/{{game.editorId}}" class="genre">{{editor.name}}</a>
+    </div>
+
+    <!-- Image et Description -->
+    <div class="img-desc">
+        <div class="imgDetail">
+            <img src="/images/test.jpg" alt="{{game.name}}"
+                 onerror="this.onerror=null; this.src='/images/not_found.jpg';"/>
+        </div>
+        <div class="info-detail">
+            <h1>Description :</h1>
+            <p>{{game.desc}}</p>
+        </div>
+    </div>
+</div>

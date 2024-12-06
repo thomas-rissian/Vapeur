@@ -1,0 +1,14 @@
+<div class = "bar-retour">
+    <div class="historique">
+        {{>arrow route = "/" title="Accueil >"}}
+        {{>arrow route = "/game" title="Jeux >"}}
+        {{>arrow route = "/kind" title="Genre >"}}
+        {{>arrow title=(concat kind.name)}}
+    </div>
+    <div class="bar-modif">
+        <a href="/game/create">Ajouter Jeux</a>
+    </div>
+
+</div>
+<ul>
+{{>gameList games = games title = (concat "Tous les jeux du genre : " kind.name)}}

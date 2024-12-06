@@ -1,12 +1,11 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
 const gameDao = require('../dao/gameDAO');
 
 const HOME = async (req, res)=>{
     try{
-        const gameTop = await gameDao.highlighting();
-        const highlighting = {};
-        res.render("index",{gameTop, highlighting});
+        const gameTop = await gameDao.firstGame()
+        const highlighting = await gameDao.highlighting() ;
+        console.log(highlighting[1].toJson());
+        res.render("home/index",{gameTop, highlighting});
 
     }catch(error){
         console.error("error homePage",error);

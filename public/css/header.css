@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Parkinsans:wght@300..800&family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=League+Spartan:wght@100..900&family=Parkinsans:wght@300..800&family=Quicksand:wght@300..700&display=swap');
+:root {
+    --text-nav: #829ec2;
+    --text-nav-hover: #9dbde5;
+    --main-bg: #0f152f;
+    --main-text: #a0a5ab;
+    --input-bg: #1e243b;
+    --input-border: #3a4463;
+    --button-bg: #3a4463;
+    --button-bg-hover: #5a6a8c;
+}
+
+html,body{
+    margin: 0;
+    padding: 0;
+}
+a{
+    text-decoration: none;
+    color: #000000;
+}
+header{
+    display: flex;
+    flex-direction: row;
+    box-shadow:0 0 1px 0 rgba(0,0,0,.5),0 1px 10px 0 rgba(0, 0, 0, 0.23);
+}
+header>a:first-child{
+    margin-right: 5%;
+    margin-left: 5%;
+}
+header>nav{
+    width: 30%;
+}
+header>nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1% 0;
+}
+header a{
+    font-family: "Parkinsans", sans-serif;
+    border-bottom: 2px solid var(--main-bg);
+    color: var(--text-nav);
+}
+header>nav a:hover{
+    color: var(--text-nav-hover);
+    border-bottom: 2px solid var(--text-nav);
+}
+

@@ -3,6 +3,7 @@ const Game = require("../model/Game");
 const gameDao = require('../dao/gameDAO');
 const editorDao = require('../dao/editorDAO');
 const kindOfGameDao = require('../dao/kindOfGameDAO');
+const highlightingDAO = require('../dao/highlightingDAO');
 
 const LIST = async (req, res) =>{
     try{
@@ -49,7 +50,8 @@ const CREATE_FORM = async (req, res) =>{
     try{
         const editors = await editorDao.findAll();
         const kinds = await kindOfGameDao.findAll();
-        res.render("./game/create",{editors,kinds});
+        const game = new Game();
+        res.render("./game/create",{editors,kinds, game});
     }catch(error){
         console.error("error createForm game", error);
         res.status(500).send("Error Create Form Game don't work");
@@ -65,7 +67,7 @@ const MODIFY = async (req, res) =>{
             return;
         }
         await gameDao.modifyGame(game);
-        res.status(201).redirect('/game');
+        res.status(201).redirect('/game/'+game.id);
     }catch(error){
         console.error("error modify game", error);
         res.status(500).send("Error modify Game don't work");
@@ -90,7 +92,8 @@ const MODIFY_FORM = async (req, res) =>{
 const LIST_BY_KIND = async (req,res)=>{
     try{
         const games = await gameDao.findByKind(req.params.id);
-        res.render("./game/index",{games});
+        const kind = await kindOfGameDao.findById(req.params.id);
+         res.render("./game/listByKind",{games, kind});
     }catch(error){
         console.error("error listByKind game", error);
         res.status(500).send("Error Game List By Kind Game don't work");
@@ -116,7 +119,21 @@ const DELETE = async (req,res)=>{
         res.status(500).send("Error delete don't work");
     }
 }
-
+const HIGHLIGHTING = async (req,res)=>{
+    try {
+        const highlighted = await highlightingDAO.findById(req.params.id);
+        if(highlighted){
+            await highlightingDAO.deleteHighlighting(req.params.id);
+            res.status(200).redirectEnd();
+        }else{
+            await highlightingDAO.addHighlighting(req.params.id);
+            res.status(200).redirectEnd();
+        }
+    }catch(error){
+        console.error("error highlighting game", error);
+        res.status(500).send("Error highlighting don't work");
+    }
+}
 module.exports = {
     LIST,
     LIST_BY_KIND,
@@ -127,4 +144,5 @@ module.exports = {
     DETAIL,
     LIST_BY_EDITOR,
     DELETE,
+    HIGHLIGHTING
 }

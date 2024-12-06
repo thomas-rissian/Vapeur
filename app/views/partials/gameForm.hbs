@@ -1,0 +1,43 @@
+<div class="center">
+    <h1>{{title}}</h1>
+    <form method="post" action="{{uri}}" class="form">
+        <div>
+            <label for="name">Nom : </label>
+            <input type="text" id="name" name="name" value="{{game.name}}" required />
+        </div>
+        <div>
+            <label for="desc">Description : </label>
+            <input type="text" id="desc" name="desc" value="{{game.desc}}" required />
+        </div>
+        <div>
+            <label for="releaseDate">Date : </label>
+            <input type="date" id="releaseDate" name="releaseDate" value="{{formatDateCalendar game.releaseDate}}" required />
+        </div>
+        <div>
+            <label for="kindId">Genre : </label>
+            <select id="kindId" name="kindId" required>
+                {{#each kinds}}
+                    <option value="{{id}}" {{#ifEqual id ../game.kindId}}selected{{/ifEqual}}>{{this.name}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div>
+            <label for="editorId">Editeur : </label>
+            <select id="editorId" name="editorId" required>
+                {{#each editors}}
+                    <option value="{{id}}" {{#ifEqual id ../game.editorId}}selected{{/ifEqual}}>{{name}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="button-group">
+            <a href="/game/{{game.id}}" class="btn-primary">Annuler</a>
+            <input type="submit" value="{{submit}}" class="btn-primary" />
+    </form>
+            {{#if delete}}
+                <form method="post" action="/game/{{game.id}}/delete" class="delete-form">
+                    <input type="submit" value="Supprimer" class="btn-delete" />
+                </form>
+            {{/if}}
+        </div>
+</div>

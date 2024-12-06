@@ -1,0 +1,17 @@
+<section class="center">
+{{#ifContain games }}
+        <h1>{{title}}</h1>
+        <div class="game-list">
+            {{#each games}}
+                <div class="game-item">
+                    <a href="/game/{{id}}" class="game-name">
+                        <div class="img-container">
+                            <img src="/images/test.jpg" alt="{{name}}"
+                                 onerror="this.onerror=null; this.src='/images/not_found.jpg';"/>
+                        </div>
+                        {{name}}
+                    </a>
+                </div>
+            {{/each}}
+        </div>
+{{/ifContain}}

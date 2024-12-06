@@ -15,6 +15,7 @@ router.post("/:id/modify", gameController.MODIFY);
 
 router.get("/:id",gameController.DETAIL);
 router.post("/:id/delete",gameController.DELETE);
+router.post("/:id/highlighting",gameController.HIGHLIGHTING);
 
 module.exports = {
     router,
