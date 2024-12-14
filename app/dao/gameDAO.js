@@ -25,12 +25,13 @@ class GameDAO
             return games.map(game => new Game(game));
         }catch(error){
             console.error("Game BDD: findAll", error);
+            return null;
         }
     }
     /**
      * Obtenir un jeu
-     * @param int id
      * @return Game
+     * @param id
      */
     async findById(id){
         try{
@@ -54,6 +55,7 @@ class GameDAO
             return new Game(game);
         }catch(error){
             console.error("Game BDD: findById", error);
+            return null;
         }
     }
     /**

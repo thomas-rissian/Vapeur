@@ -38,6 +38,7 @@ class EditorDAO{
             return new Editor(editor);
         }catch(error){
             console.error("Editor BDD: findById", error);
+            return null;
         }
     }
     /**

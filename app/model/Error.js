@@ -8,14 +8,12 @@ class Error{
     getErrors(){
         return this.#errors;
     }
-    hasError(){
-        return this.#errors.length>0;
+    hasError() {
+        return Object.keys(this.#errors).length > 0;
     }
+
     pushError(field, message){
-        this.#errors.push({
-            field: field,
-            message: message,
-        })
+        this.#errors[field] = message;
     }  
     isValidString(value) {
         return !this.isNull(value) && typeof value === "string" && value.trim() !== "";

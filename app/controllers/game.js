@@ -1,141 +1,160 @@
-
 const Game = require("../model/Game");
 const gameDao = require('../dao/gameDAO');
 const editorDao = require('../dao/editorDAO');
 const kindOfGameDao = require('../dao/kindOfGameDAO');
 const highlightingDAO = require('../dao/highlightingDAO');
 
-const LIST = async (req, res) =>{
-    try{
+const LIST = async (req, res) => {
+    try {
         const games = await gameDao.findAll();
-
-        res.render("./game/index",{games});
-    }catch(error){
+        res.render("./game/index", { games });
+    } catch (error) {
         console.error("error listGame", error);
-        res.status(500).send("Error List Game don't work");
+        res.status(500).send("Internal Server Error: Unable to list games.");
     }
 };
 
-const DETAIL = async (req, res) =>{
-    try{    
+const DETAIL = async (req, res) => {
+    try {
         const game = await gameDao.findById(req.params.id);
-        if(game.error.hasError()){
-            res.redirect("/game");
+        console.log(game);
+        if (game === null) {
+            res.status(404).redirect("/");
             return;
         }
         const editor = await editorDao.findById(game.editorId);
         const kind = await kindOfGameDao.findById(game.kindId);
-        res.render("./game/detail", {game, editor, kind});
-    }catch(error){
-        console.error("error detail game", error);  
-        res.status(500).send("Error detail Game don't work");
+        res.render("./game/detail", { game, editor, kind });
+    } catch (error) {
+        console.error("error detail game", error);
+        res.status(500).send("Internal Server Error: Unable to get game details.");
     }
-}
+};
 
-const CREATE = async (req, res) =>{
-    try{
+const CREATE = async (req, res) => {
+    try {
         const game = new Game(req.body);
-        if(game.error.hasError()){
-            res.send(game.error.getErrors());
+        if (game.error.hasError()) {
+            const editors = await editorDao.findAll();
+            const kinds = await kindOfGameDao.findAll();
+            const error = game.error.getErrors();
+            res.status(400).render("./game/create", { editors, kinds, game, error });
             return;
         }
         await gameDao.createGame(game);
         res.status(201).redirect('/game');
-    }catch(error){
+    } catch (error) {
         console.error("error create game", error);
-        res.status(500).send("Error Create Game don't work");
+        res.status(500).send("Internal Server Error: Unable to create game.");
     }
 };
-const CREATE_FORM = async (req, res) =>{
-    try{
+
+const CREATE_FORM = async (req, res) => {
+    try {
         const editors = await editorDao.findAll();
         const kinds = await kindOfGameDao.findAll();
         const game = new Game();
-        res.render("./game/create",{editors,kinds, game});
-    }catch(error){
+        res.render("./game/create", { editors, kinds, game });
+    } catch (error) {
         console.error("error createForm game", error);
-        res.status(500).send("Error Create Form Game don't work");
+        res.status(500).send("Internal Server Error: Unable to load game creation form.");
     }
 };
 
-const MODIFY = async (req, res) =>{
-    try{
+const MODIFY = async (req, res) => {
+    try {
         req.body.id = req.params.id;
         const game = new Game(req.body);
-        if(game.error.hasError()){
-            res.send(game.error.getErrors());
-            return;
+        if (game.error.hasError()) {
+            const editors = await editorDao.findAll();
+            const kinds = await kindOfGameDao.findAll();
+            const error = game.error.getErrors();
+            return res.status(400).render("./game/modify", { game, editors, kinds, error });
         }
         await gameDao.modifyGame(game);
-        res.status(201).redirect('/game/'+game.id);
-    }catch(error){
+        res.status(200).redirect(`/game/${game.id}`);
+    } catch (error) {
         console.error("error modify game", error);
-        res.status(500).send("Error modify Game don't work");
+        res.status(500).send("Internal Server Error: Unable to modify game.");
     }
 };
-const MODIFY_FORM = async (req, res) =>{
-    try{
+
+const MODIFY_FORM = async (req, res) => {
+    try {
         const game = await gameDao.findById(req.params.id);
-        if(game.error.hasError()){
-            res.redirect("/game");
+        if (!game) {
+            res.status(404).redirect("/");
             return;
         }
         const editors = await editorDao.findAll();
-        const kinds = await kindOfGameDao.findAll()
-        res.render("./game/modify",{game,editors,kinds});
-    }catch(error){
+        const kinds = await kindOfGameDao.findAll();
+        res.render("./game/modify", { game, editors, kinds });
+    } catch (error) {
         console.error("error modifyForm game", error);
-        res.status(500).send("Error modify Form Game don't work");
+        res.status(500).send("Internal Server Error: Unable to load game modification form.");
     }
 };
 
-const LIST_BY_KIND = async (req,res)=>{
-    try{
+const LIST_BY_KIND = async (req, res) => {
+    try {
         const games = await gameDao.findByKind(req.params.id);
         const kind = await kindOfGameDao.findById(req.params.id);
-         res.render("./game/listByKind",{games, kind});
-    }catch(error){
+        if (!kind) {
+            res.status(404).redirect("/");
+            return;
+        }
+        res.render("./game/listByKind", { games, kind });
+    } catch (error) {
         console.error("error listByKind game", error);
-        res.status(500).send("Error Game List By Kind Game don't work");
+        res.status(500).send("Internal Server Error: Unable to list games by kind.");
     }
-}
+};
 
-const LIST_BY_EDITOR = async (req,res)=>{
-    try{
+const LIST_BY_EDITOR = async (req, res) => {
+    try {
         const games = await gameDao.findByEditor(req.params.id);
         const editor = await editorDao.findById(req.params.id);
-        res.render("./game/listByeditor",{games, editor});
-    }catch(error){
+        if (!editor) {
+            res.status(404).redirect("/");
+            return;
+        }
+        res.render("./game/listByeditor", { games, editor });
+    } catch (error) {
         console.error("error listByEditor game", error);
-        res.status(500).send("Error Game Liste By Editor don't work");
+        res.status(500).send("Internal Server Error: Unable to list games by editor.");
     }
-}
+};
 
-const DELETE = async (req,res)=>{
-    try{
-        await gameDao.deleteGame(req.params.id)
+const DELETE = async (req, res) => {
+    try {
+        const game = await gameDao.findById(req.params.id);
+        if (!game) {
+            res.status(404).send("Game not found.");
+            return;
+        }
+        await gameDao.deleteGame(req.params.id);
         res.status(200).redirect("/game");
-    }catch(error){
+    } catch (error) {
         console.error("error delete game", error);
-        res.status(500).send("Error delete don't work");
+        res.status(500).send("Internal Server Error: Unable to delete game.");
     }
-}
-const HIGHLIGHTING = async (req,res)=>{
+};
+
+const HIGHLIGHTING = async (req, res) => {
     try {
         const highlighted = await highlightingDAO.findById(req.params.id);
-        if(highlighted){
+        if (highlighted) {
             await highlightingDAO.deleteHighlighting(req.params.id);
-            //page précédente
             res.status(200).redirect(req.get('Referer'));
-        }else{
+        } else {
             await highlightingDAO.addHighlighting(req.params.id);
             res.status(200).redirect(req.get('Referer'));
         }
-    }catch(error){
+    } catch (error) {
         console.error("error highlighting game", error);
-        res.status(500).send("Error highlighting don't work");
+        res.status(500).send("Internal Server Error: Unable to update highlighting.");
     }
-}
+};
 
 module.exports = {
     LIST,
@@ -148,4 +167,4 @@ module.exports = {
     LIST_BY_EDITOR,
     DELETE,
     HIGHLIGHTING
-}
+};

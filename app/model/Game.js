@@ -9,6 +9,7 @@ class Game{
     #kindId = 0;
     #editorId = 0;
     #favorite;
+    #image ="";
     #error;
 
     constructor(reqBody ={}) {
@@ -23,11 +24,16 @@ class Game{
             this.#favorite = false;
         }else{
             if(reqBody.highlighting !== undefined){
-                this.#favorite = false;
+                if(Object.keys(reqBody.highlighting).length > 0){
+                    this.#favorite = true;
+                }else{
+                    this.#favorite = false;
+                }
             }else{
                 this.#favorite = true;
             }
         }
+        this.setImage(reqBody.image || "");
 
     }
 
@@ -89,6 +95,9 @@ class Game{
         }
         this.#editorId = editorId;
     }
+    setImage(img) {
+
+    }
     get id() {
         return this.#id;
     }
@@ -115,7 +124,9 @@ class Game{
     get favorite(){
         return this.#favorite;
     }
-
+    get image(){
+        return this.#image;
+    }
     /**
      *
      * @returns CustomError
@@ -123,5 +134,7 @@ class Game{
     get error(){
         return this.#error;
     }
+
+
 }
 module.exports = Game;

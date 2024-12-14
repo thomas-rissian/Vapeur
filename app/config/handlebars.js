@@ -32,7 +32,9 @@ hbs.registerHelper("concat", (...args) => {
    args.pop();
    let concat = "";
    for(const arg of args){
-       concat+= arg;
+       if(arg){
+           concat+= arg;
+       }
    }
     return concat;
 });

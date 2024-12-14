@@ -2,19 +2,19 @@
     <h1>{{title}}</h1>
     <form method="post" action="{{uri}}" class="form">
         <div>
-            <label for="name">Nom : </label>
+            <label for="name">Nom : {{>errorTxt error = (concat error.name)}}</label>
             <input type="text" id="name" name="name" value="{{game.name}}" required />
         </div>
         <div>
-            <label for="desc">Description : </label>
+            <label for="desc">Description : {{>errorTxt error = (concat error.desc)}}</label>
             <input type="text" id="desc" name="desc" value="{{game.desc}}" required />
         </div>
         <div>
-            <label for="releaseDate">Date : </label>
+            <label for="releaseDate">Date :{{>errorTxt error = (concat error.releaseDate)}} </label>
             <input type="date" id="releaseDate" name="releaseDate" value="{{formatDateCalendar game.releaseDate}}" required />
         </div>
         <div>
-            <label for="kindId">Genre : </label>
+            <label for="kindId">Genre : {{>errorTxt error = (concat error.kind)}}</label>
             <select id="kindId" name="kindId" required>
                 {{#each kinds}}
                     <option value="{{id}}" {{#ifEqual id ../game.kindId}}selected{{/ifEqual}}>{{this.name}}</option>
@@ -22,12 +22,20 @@
             </select>
         </div>
         <div>
-            <label for="editorId">Editeur : </label>
+            <label for="editorId">Editeur : {{>errorTxt error = (concat error.editor)}}</label>
             <select id="editorId" name="editorId" required>
                 {{#each editors}}
                     <option value="{{id}}" {{#ifEqual id ../game.editorId}}selected{{/ifEqual}}>{{name}}</option>
                 {{/each}}
             </select>
+        </div>
+        <div>
+            <label for="image">Image : {{>errorTxt error = (concat error.editor)}}</label>
+            <input type="file" id="image" name="image" value="{{game.image}}" />
+            <div class="imgDetail">
+                <img src="{{game.image}}" alt="{{name}}"
+                     onerror="this.onerror=null; this.src='/images/not_found.jpg';"/>
+            </div>
         </div>
 
         <div class="button-group">

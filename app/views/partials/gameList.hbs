@@ -5,7 +5,7 @@
                 <div class="game-item">
                     <a href="/game/{{id}}" class="game-name">
                         <div class="img-container">
-                            <img src="/images/test.jpg" alt="{{name}}"
+                            <img src="{{game.image}}" alt="{{name}}"
                                  onerror="this.onerror=null; this.src='/images/not_found.jpg';"/>
                             <form action="/game/{{id}}/highlighting" method="post" class="svg-form">
                                 {{#if favorite}}
