@@ -1,0 +1,8 @@
+<div class = "bar-retour">
+    <div class="historique">
+        {{>arrow route = "/" title="Accueil > "}}
+        {{>arrow route = "/game" title="Jeux > "}}
+        {{>arrow title="Ajout"}}
+    </div>
+</div>
+{{>gameForm title="Ajout" uri="/game/create" game = game submit="Ajouter" delete=false}}

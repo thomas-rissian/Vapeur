@@ -1,0 +1,56 @@
+<div class="bar-retour">
+    <!-- Historique -->
+    <div class="historique">
+        {{>arrow route="/" title="Accueil > "}}
+        {{>arrow route="/game" title="Jeux > "}}
+        {{>arrow title=(concat game.name)}}
+    </div>
+    <!-- Actions -->
+    <div class="bar-modif">
+        <a href="/game/{{game.id}}/modify">Modifier</a>
+        <form method="post" action="/game/{{game.id}}/delete" class="delete-form        ">
+            <input type="submit" value="Supprimer" name="delete" class="btn-delete"/>
+        </form>
+
+    </div>
+</div>
+
+<div class="detail">
+    <!-- Titre et Date -->
+    <div>
+        <h1>{{game.name}}</h1>
+        <h2>{{formatDate game.releaseDate}}</h2>
+    </div>
+
+    <!-- Genre et Éditeur -->
+    <div class="detail-information">
+        <a href="/game/kind/{{game.kindId}}" class="genre">{{kind.name}}</a>
+        <a href="/game/editor/{{game.editorId}}" class="genre">{{editor.name}}</a>
+        <a class="genre">
+        <form action="/game/{{game.id}}/highlighting" method="post" style="margin: 0">
+            {{#if game.favorite}}
+                <button type="submit" class="svg-button" >
+                    <img src="/svg/favorite_complete.svg" alt="Submit Icon">
+                </button>
+            {{else}}
+                <button type="submit" class="svg-button">
+                    <img src="/svg/favorite_uncomplete.svg" alt="Submit Icon">
+                </button>
+            {{/if}}
+
+        </form>
+        </a>
+    </div>
+
+    <!-- Image et Description -->
+    <div class="img-desc">
+            <div class="imgDetail">
+            <img src="/images/test.jpg" alt="{{game.name}}"
+                 onerror="this.onerror=null; this.src='/images/not_found.jpg';"/>
+        </div>
+        <div class="info-detail">
+            <h1>Description :</h1>
+            <p>{{game.desc}}</p>
+        </div>
+    </div>
+</div>

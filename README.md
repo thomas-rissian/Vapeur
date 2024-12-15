@@ -1,32 +1,67 @@
 # VAPEUR
-## Description
-Projet Web Javascript, CRUD sur un site de listening de jeux vidéo
 
+## 📖 Description
 
-## Commandes 
+**Vapeur** est un catalogue personnel de jeux vidéo. Cette application permet :  
+- L'ajout de nouveaux jeux.  
+- La mise en avant de certains titres.  
+- La suppression de jeux si nécessaire.  
+- Le tri des jeux par genres ou éditeurs.  
 
-- `npm install express`
-- `npm install --save-dev nodemon`
-- `npm install prisma @prisma/client sqlite3`
-- `npx prisma init`
-- `npm install hbs`
+---
 
-## Configuration 
+## 📂 Structure du projet
 
-Créez / modifiez le fichier .env
-Ajoutez : `DATABASE_URL="file:./database.db"`
+Le projet inclut les dossiers et fichiers suivants :  
+- `/app` : Contient la logique principale de l'application.  
+- `/prisma` : Configuration Prisma et migrations pour la base de données.  
+- `/public` : Contient les ressources publiques comme les fichiers statiques.  
+- `index.js` : Point d'entrée de l'application.  
+- `package.json` : Configuration des dépendances et scripts npm.
 
-Après modification de la bdd, veuillez appliquez les modifications : 
+---
 
-- `npx prisma migrate dev --name init`
+## ⚙️ Installation
 
-Afin de générer le client : 
+1. **Installer les dépendances** :  
+   ```bash
+   npm install
+   ```
 
-- `npx prisma generate`
+2. **Configurer la base de données** :  
+   Créez le fichier `.env` à la racine du projet et ajoutez la ligne suivante :  
+   ```env
+   DATABASE_URL="file:./database.db"
+   ```
 
-## Utilisation
+---
 
-Pour démarrer le serveur : 
+## 🛠️ Commandes de configuration
 
-- `npm start`
-- `localhost:3080`
+### 1. Appliquer les migrations de la base de données :
+Cette commande est nécessaire si vous modifiez la structure de la base de données ou son emplacement.  
+   ```bash
+   npx prisma migrate dev
+   ```
+
+### 2. Générer le client Prisma :  
+   Utilisez cette commande après avoir modifié le fichier `schema.prisma`.  
+   ```bash
+   npx prisma generate
+   ```
+
+---
+
+## 🚀 Utilisation
+
+### 1. Démarrer le serveur :  
+   ```bash
+   npm start
+   ```
+   Accédez à l'application via : [http://localhost:3080](http://localhost:3080).
+
+### 2. Insérer des données de test :  
+   Pour initialiser la base de données avec des valeurs par défaut ou de test :  
+   ```bash
+   npm run bddTest
+   ```

@@ -1,0 +1,9 @@
+<div class = "bar-retour">
+    <div class="historique">
+        {{>arrow route = "/" title="Accueil > "}}
+        {{>arrow route = "/game" title="Jeux > "}}
+        {{>arrow route =(concat "/game/" game.id) title=(concat game.name " > ")}}
+        {{>arrow title="Modification"}}
+    </div>
+</div>
+{{>gameForm title="Modification" uri=(concat "/game/" game.id "/modify") game = game submit="Modifier" delete=true}}
