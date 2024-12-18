@@ -25,7 +25,7 @@ Le projet inclut les dossiers et fichiers suivants :
 
 1. **Installer les dépendances** :  
    ```bash
-   npm install
+   npm install -dev
    ```
 
 2. **Configurer la base de données** :  
